@@ -24,24 +24,25 @@ const myData: MyData[] = [
 const Homework = () => {
   const [checkedItems, setCheckedItems] = useState<string[]>([])
 
-  const handleAllChecked = (checked: boolean) => {
+  const handleAllChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked
     if(checked) {
-      const allId: string[] = []
-      myData.forEach((data) => allId.push(data.id))
-      // console.log(allId)
-      setCheckedItems(allId)
+      const newArr: string[] = []
+      myData.forEach(data => newArr.push(data.id))
+      setCheckedItems(newArr)
     } else {
       setCheckedItems([])
     }
   }
+  
 
   return (
     <>
       <header>
         <input 
           type='checkbox' 
-          onChange={(event) => handleAllChecked(event.target.checked)}
-          checked={checkedItems.length === myData.length ? true: false}
+          onChange={handleAllChecked}
+          checked={checkedItems.length === myData.length? true : false}
         />
         전체선택
       </header>
