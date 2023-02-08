@@ -22,7 +22,7 @@ const Homework = () => {
 
   return (
     <div>
-      <div className='p-4 flex items-center justify-between bg-blue-800'>
+      <header className='p-4 flex items-center justify-between bg-blue-800'>
         <div className='text-white font-bold text-xl'>WILL</div>
         <ul className='flex gap-2 text-white'>
           <li className={cls(...liStyle)}>
@@ -38,7 +38,7 @@ const Homework = () => {
             <span>Write</span>
           </li>
         </ul>
-      </div>
+      </header>
       <section className='p-6 flex flex-col gap-2'>
         <p className='text-zinc-400 text-sm'>Posted by {nickname} just now</p>
         <h1 className='font-bold text-xl'>{title}</h1>

@@ -5,7 +5,7 @@ export function cls(...classnames: string[]) {
   return classnames.join(" ");
 }
 
-const addItemBtn = [
+export const addItemBtn = [
   'w-10', 
   'h-10', 
   'bg-orange-500',
