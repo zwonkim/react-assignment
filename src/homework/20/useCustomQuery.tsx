@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getTodos } from './api';
 
 interface ITodo {
   id: string;
@@ -16,12 +17,16 @@ interface IUseCustomQueryReturn {
 }
 
 export type TFetcher = () => Promise<ITodo[]>;
-type TUseCustomQuery = (fetcherFn: TFetcher) => IUseCustomQueryReturn;
+type TUseCustomQuery = () => IUseCustomQueryReturn;
 
-const useCustomQuery: TUseCustomQuery = (fetcherFn) => {
+const useCustomQuery: TUseCustomQuery = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<ITodo[]>([]);
-  const refetch = () => {};
+  const refetch = async () => {
+    setIsLoading(false)
+    await getTodos().then((todos) => setData(todos))
+    setIsLoading(true)
+  };
 
   useEffect(() => {
     refetch();

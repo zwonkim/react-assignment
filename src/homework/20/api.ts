@@ -24,10 +24,23 @@ export const getTodos: TFetcher = () => {
     headers: HEADERS,
   }).then((res) => res.json());
 };
+
 // todo 리스트 추가하는 api
 export const postTodos = (todoTitle: string) => {
   return fetch(BASE_URL, {
     method: "POST",
+    headers: HEADERS,
+    body: JSON.stringify({
+      title: todoTitle,
+    }),
+  })
+  .then((res) => res.json());
+};
+
+// todo 수정하는 api
+export const editTodos = (todoId: string, todoTitle: string) => {
+  return fetch(`${BASE_URL}/${todoId}`, {
+    method: "DELETE",
     headers: HEADERS,
     body: JSON.stringify({
       title: todoTitle,
