@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTodos } from './api';
 
-interface ITodo {
+export interface ITodo {
   id: string;
   order: number;
   title: string;

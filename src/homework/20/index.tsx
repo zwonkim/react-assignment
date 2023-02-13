@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import DeleteBtn from "./DeleteBtn";
 import { postTodos } from "./api";
 import EditBtn from './EditBtn';
+import CompleteBtn from './CompleteBtn';
 
 export interface ITodo {
   id: string;
@@ -20,24 +21,29 @@ export interface ITodo {
 const Homework = () => {
   const [inputValue, setInputValue] = useState('')
   const [editValue, setEditValue] = useState('')
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit, setIsEdit] = useState('')
   const { data, refetch } = useCustomQuery()
   const { mutate: addTodo, isLoading } = useCustomMutation(postTodos)
 
-  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+  console.log(data)
+
+  const handleAdd = (event:React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
+  }
+
+  const handleEdit = (event:React.ChangeEvent<HTMLInputElement>) => {
     setEditValue(event.target.value)
   }
 
   const handleSubmit = () => {
-    addTodo(inputValue)
+    addTodo([inputValue])
     refetch()
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input name='input' type='text' placeholder='new Todo' onChange={handleChange} value={inputValue}/>
+        <input name='input' type='text' placeholder='new Todo' onChange={handleAdd} value={inputValue}/>
         <button>추가</button>
       </form>
      {isLoading ? <span>{"todo 추가중..."}</span> : ''}
@@ -46,9 +52,21 @@ const Homework = () => {
           data.map((todo) => 
            <li key={todo.id}>
             {todo.title}
-            {isEdit ? <input name='editInput' type='text' placeholder='Edit Todo' onChange={handleChange} value={editValue}/> : ''}
-            <DeleteBtn id={todo.id} refetch={refetch}/>
-            <EditBtn id={todo.id} title={editValue} refetch={refetch}/>
+            {
+              isEdit === todo.id ? 
+              <input name='editInput' type='text' placeholder='Edit Todo' onChange={handleEdit} value={editValue}/> 
+              : ''
+            }
+            {
+              isEdit === todo.id ? 
+              <CompleteBtn id={todo.id} title={editValue} setEditValue={setEditValue} setIsEdit={setIsEdit}/>
+              : (
+                <>
+                  <DeleteBtn id={todo.id} refetch={refetch}/>
+                  <EditBtn id={todo.id} setIsEdit={setIsEdit}/>
+                </>
+              )
+            }
           </li>
            )
         }

@@ -20,7 +20,7 @@ export interface IDeleteBtnProps {
 const DeleteBtn = ({id, refetch}:IDeleteBtnProps) => {
   const { mutate: deleteTodoBy } = useMutation(deleteTodos);
   const handleClick = async () => {
-    await deleteTodoBy(id)
+    await deleteTodoBy([id])
     refetch()
   };
   return <Btn onClick={handleClick}>del</Btn>;

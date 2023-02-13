@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
-import { editTodos } from './api';
-import useCustomMutation from './useCustomMutation';
-import { IDeleteBtnProps } from './DeleteBtn';
 
-interface IEditBtnProps extends IDeleteBtnProps {
-  title: string;
+interface IEditBtnProps {
+  id: string,
+  setIsEdit: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Btn = styled.div`
@@ -17,11 +15,12 @@ const Btn = styled.div`
   cursor: pointer;
 `;
 
-const EditBtn = ({id, title, refetch}:IEditBtnProps) => {
-  const { data, isLoading, mutate:editTodoBy } = useCustomMutation(editTodos)
+const EditBtn = ({id, setIsEdit}:IEditBtnProps) => {
+  
   const handleClick = () => {
-    editTodoBy(id, title)
+    setIsEdit(id)
   }
+
   return (
     <Btn onClick={handleClick}>
       Edit

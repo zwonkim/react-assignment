@@ -10,8 +10,8 @@ const HEADERS = {
 };
 
 // 삭제 요청하는 api
-export const deleteTodos = (todoId: string) => {
-  return fetch(`${BASE_URL}/${todoId}`, {
+export const deleteTodos = (input:string[]) => {
+  return fetch(`${BASE_URL}/${input[0]}`, {
     method: "DELETE",
     headers: HEADERS,
   }).then((res) => res.json());
@@ -26,24 +26,25 @@ export const getTodos: TFetcher = () => {
 };
 
 // todo 리스트 추가하는 api
-export const postTodos = (todoTitle: string) => {
+export const postTodos = (input:string[]) => {
   return fetch(BASE_URL, {
     method: "POST",
     headers: HEADERS,
     body: JSON.stringify({
-      title: todoTitle,
+      title: input[0],
     }),
   })
   .then((res) => res.json());
 };
 
 // todo 수정하는 api
-export const editTodos = (todoId: string, todoTitle: string) => {
-  return fetch(`${BASE_URL}/${todoId}`, {
-    method: "DELETE",
+export const editTodos = (input:string[]) => {
+  return fetch(`${BASE_URL}/${input[0]}`, {
+    method: "PUT",
     headers: HEADERS,
     body: JSON.stringify({
-      title: todoTitle,
+      title: input[1],
+      done: false,
     }),
-  }).then((res) => res.json());
+  }).then((res) => res.json())
 };
