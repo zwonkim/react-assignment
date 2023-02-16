@@ -10,7 +10,7 @@ const axiosClient = axios.create({
   },
 });
 
-interface ISearchItem {
+export interface ISearchItem {
   kind: string;
   etag: string;
   id: {
@@ -45,6 +45,7 @@ export interface ISearchedResult {
   };
   items: ISearchItem[];
 }
+
 let countFetching = 0;
 export const search = (keyword: string): Promise<ISearchedResult> => {
   const mockupData = new Promise<ISearchedResult>((resolve) => {
